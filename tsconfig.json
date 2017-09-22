@@ -1,0 +1,12 @@
+{
+	"compilerOptions": {
+		"target": "es2017",
+		//"module": "none",
+		"sourceMap": true,
+		"outDir": "./public/js",
+		"watch": true
+	},
+	"exclude": [
+		"node_modules"
+	]
+}
