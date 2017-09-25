@@ -5,4 +5,5 @@ in his "Writing Super Mario in Javascript" tutorial series.
 
 This repository contains the source code for the following episodes:
 
- - episode 1: [Writing Super Mario in Javascript (Ep 1)](https://youtu.be/g-FpDQ8Eqw8?list=PLS8HfBXv9ZWWe8zXrViYbIM2Hhylx8DZx)
+ - Episode 1: [Backgrounds & Tiles](https://youtu.be/g-FpDQ8Eqw8?list=PLS8HfBXv9ZWWe8zXrViYbIM2Hhylx8DZx)
+ - Episode 2: [Sprites & Layers](https://www.youtube.com/watch?v=FF93S8rLL_Q&list=PLS8HfBXv9ZWWe8zXrViYbIM2Hhylx8DZx&index=2)
