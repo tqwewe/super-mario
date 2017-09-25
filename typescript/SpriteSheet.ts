@@ -7,23 +7,27 @@ export default class SpriteSheet {
 		this.tiles = new Map();
 	}
 
-	define(name: string, x: number, y: number): void {
+	define(name: string, x: number, y: number, width: number, height: number): void {
 		const buffer = document.createElement('canvas');
-		buffer.width = this.width;
-		buffer.height = this.height;
+		buffer.width = width;
+		buffer.height = height;
 		buffer
 			.getContext('2d')
 			.drawImage(
 				this.image,
-				x * this.width,
-				y * this.height,
-				this.width,
-				this.height,
+				x,
+				y,
+				width,
+				height,
 				0,
 				0,
-				this.width,
-				this.height);
+				width,
+				height);
 		this.tiles.set(name, buffer);
+	}
+
+	defineTile(name: string, x: number, y: number) {
+		this.define(name, x * this.width, y * this.height, this.width, this.height);
 	}
 
 	draw(name: string, context: CanvasRenderingContext2D, x: number, y: number): void {

@@ -5,32 +5,46 @@
 
 // This is the source code for episode 1: https://youtu.be/g-FpDQ8Eqw8?list=PLS8HfBXv9ZWWe8zXrViYbIM2Hhylx8DZx
 
+import Compositor from "./Compositor.js";
 import SpriteSheet from "./SpriteSheet.js";
-import {loadImage, loadLevel, levelData} from "./loaders.js";
-
-function drawBackground(background: levelData.Background, context: CanvasRenderingContext2D, sprites: SpriteSheet): void {
-	background.ranges.forEach(([x1, x2, y1, y2]) => {
-		for (let x = x1; x < x2; ++x) {
-			for (let y = y1; y < y2; ++y) {
-				sprites.drawTile(background.tile, context, x, y);
-			}
-		}
-	});
-}
+import {loadLevel, levelData} from "./loaders.js";
+import {loadMarioSprite, loadBackgroundSprites} from "./sprites.js";
+import {createBackgroundLayer} from "./layers.js";
 
 const canvas = <HTMLCanvasElement> document.getElementById('screen');
 const context = canvas.getContext('2d');
 
-loadImage('/img/tiles.png')
-	.then(image => {
-		const sprites = new SpriteSheet(image, 16, 16);
-		sprites.define('ground', 0, 0);
-		sprites.define('sky', 3, 23);
+function createSpriteLayer(sprite: SpriteSheet, pos: any): Function {
+	return function drawSpriteLayer(context): void {
+		for (let i = 0; i < 20; ++i) {
+			sprite.draw('idle', context, pos.x + i * 16, pos.y);
+		}
+	}
+}
 
-		loadLevel('1-1')
-			.then((level: levelData.RootObject) => {
-				level.backgrounds.forEach((background: levelData.Background) => {
-					drawBackground(background, context, sprites);
-				});
-			});
-	});
+Promise.all([
+	loadMarioSprite(),
+	loadBackgroundSprites(),
+	loadLevel('1-1'),
+]).then(([marioSprite, backgroundSprites, level]) => {
+	const comp = new Compositor();
+	const backgroundLayer = createBackgroundLayer(level.backgrounds, backgroundSprites);
+	comp.layers.push(backgroundLayer);
+
+	const pos = {
+		x: 0,
+		y: 0,
+	};
+
+	const spriteLayer = createSpriteLayer(marioSprite, pos);
+	comp.layers.push(spriteLayer);
+
+	function update(): void {
+		comp.draw(context);
+		pos.x += 2;
+		pos.y += 2;
+		requestAnimationFrame(update);
+	}
+
+	update();
+});

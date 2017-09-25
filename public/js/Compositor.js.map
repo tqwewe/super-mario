@@ -1,0 +1,1 @@
+{"version":3,"file":"Compositor.js","sourceRoot":"","sources":["../../typescript/Compositor.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,OAAO;IAGb;QACC,IAAI,CAAC,MAAM,GAAG,EAAE,CAAC;IAClB,CAAC;IAED,IAAI,CAAC,OAAiC;QACrC,IAAI,CAAC,MAAM,CAAC,OAAO,CAAC,KAAK;YACxB,KAAK,CAAC,OAAO,CAAC,CAAC;QAChB,CAAC,CAAC,CAAC;IACJ,CAAC;CACD"}
